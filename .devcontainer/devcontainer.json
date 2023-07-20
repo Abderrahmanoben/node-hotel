@@ -9,7 +9,7 @@
   "customizations": {
     "codespaces": {
       "openFiles": [
-        "index.js"
+        "server.js"
       ]
     }
   },
