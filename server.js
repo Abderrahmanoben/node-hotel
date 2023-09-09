@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const fs = require("fs");
 
 const app = express();
 
@@ -16,10 +17,11 @@ app.get("/", function (request, response) {
 //create a new booking
 app.post("/bookings", function (req, res) {
   const newBooking = req.body;
-  // if (newBooking = "") {
-  //   res.status(400).send("you cannot submit an empty booking!")
-  // }
+  if (!req.body.title) {
+   res.status(400).send("you cannot submit an empty booking!")
+}
   bookings.push(newBooking);
+  fs.writeFileSync("./bookings.json", JSON.stringify(bookings));
   res.status(201).send(newBooking);
 });
 
@@ -56,6 +58,10 @@ app.delete("/bookings/:id", (req, res) => {
 
 // TODO add your routes and helper functions here
 
-const listener = app.listen(process.env.PORT, function () {
+
+
+const PORT = 3000;
+
+const listener = app.listen(PORT, function () {
   console.log("Your app is listening on port " + listener.address().port);
 });
